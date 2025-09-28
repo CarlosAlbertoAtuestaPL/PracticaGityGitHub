@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guía rápida: Git y GitHub</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#06b6d4; --muted:#94a3b8; --glass: rgba(255,255,255,0.03);
+      --radius:12px; --mono: "Segoe UI Mono", "Courier New", monospace;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#071023 0%, #07182b 100%); color:#e6eef6; -webkit-font-smoothing:antialiased;
+      padding:28px;
+    }
+    .container{max-width:980px;margin:0 auto;}
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#7c3aed);
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#021022;font-size:20px;box-shadow:0 6px 18px rgba(2,6,23,.6)
+    }
+    h1{margin:0;font-size:20px}
+    p.lead{color:var(--muted);margin:6px 0 0;font-size:14px}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+    @media (max-width:880px){.grid{grid-template-columns:1fr}}
+    .card{background:linear-gradient(180deg,var(--card), rgba(11,18,32,.9));padding:16px;border-radius:var(--radius);box-shadow:0 6px 24px rgba(2,6,23,.6);}
+    .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h2{margin:0;font-size:16px}
+    .muted{color:var(--muted);font-size:13px}
+
+    pre{background:var(--glass);padding:12px;border-radius:8px;overflow:auto;font-family:var(--mono);font-size:13px;color:#cfeffd}
+    code{font-family:var(--mono);font-size:13px}
+    .cmd-row{display:flex;gap:8px;align-items:center;}
+    .btn{
+      background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:var(--accent);
+      cursor:pointer;font-weight:600;font-size:13px;
+    }
+    .btn.secondary{color:var(--muted);border-style:dashed}
+    .small{font-size:12px;padding:6px 8px;border-radius:8px}
+    .list{margin:0;padding-left:18px;color:var(--muted)}
+    .commands{display:grid;gap:10px}
+    .footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* badge */
+    .badge{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:12px;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
+
+    /* copy success */
+    .copied{position:fixed;right:18px;bottom:18px;background:#052b2f;color:#bff0ee;padding:10px 14px;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,.5)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">GH</div>
+      <div>
+        <h1>Guía rápida: instalar y usar <strong>Git</strong> + crear repositorio en <strong>GitHub</strong></h1>
+        <p class="lead">Archivo con pasos y comandos listos para copiar. Ideal para práctica en clase.</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- main -->
+      <main class="card">
+        <div class="section-title">
+          <h2>Antes de empezar</h2>
+          <div class="badge">Requisitos: Internet · Terminal</div>
+        </div>
+
+        <p class="muted">Verifica que tienes Git instalado y tu usuario configurado. Aquí están los pasos esenciales (copiar con botón):</p>
+
+        <div style="margin-top:12px" class="commands">
+          <div>
+            <strong>Configuración inicial (única vez)</strong>
+            <div class="cmd-row" style="margin-top:8px">
+              <pre id="cmd1">git config --global user.name "Tu Nombre"
+git config --global user.email "tu.email@example.com"
+git config --global init.defaultBranch main</pre>
+              <button class="btn small" data-copy="cmd1">Copiar</button>
+            </div>
+          </div>
+
+          <div>
+            <strong>Crear repo local desde cero</strong>
+            <div class="cmd-row" style="margin-top:8px">
+              <pre id="cmd2">mkdir proyecto-demo
+cd proyecto-demo
+git init
+echo "# Proyecto Demo" > README.md
+git add .
+git commit -m "Primer commit"</pre>
+              <button class="btn small" data-copy="cmd2">Copiar</button>
+            </div>
+          </div>
+
+          <div>
+            <strong>Enlazar con GitHub (SSH)</strong>
+            <div class="cmd-row" style="margin-top:8px">
+              <pre id="cmd3">git remote add origin git@github.com:tu-usuario/proyecto-demo.git
+git branch -M main
+git push -u origin main</pre>
+              <button class="btn small" data-copy="cmd3">Copiar</button>
+            </div>
+          </div>
+
+          <div>
+            <strong>Si usas HTTPS</strong>
+            <div class="cmd-row" style="margin-top:8px">
+              <pre id="cmd4">git remote add origin https://github.com/tu-usuario/proyecto-demo.git
+git branch -M main
+git push -u origin main</pre>
+              <button class="btn small" data-copy="cmd4">Copiar</button>
+            </div>
+          </div>
+
+          <div>
+            <strong>Crear rama, trabajar y subir</strong>
+            <div class="cmd-row" style="margin-top:8px">
+              <pre id="cmd5">git checkout -b feature/mi-funcion
+# editar archivos...
+git add .
+git commit -m "feat: agrega mi-funcion"
+git push -u origin feature/mi-funcion</pre>
+              <button class="btn small" data-copy="cmd5">Copiar</button>
+            </div>
+          </div>
+
+          <div>
+            <strong>Comandos útiles (resumen)</strong>
+            <div class="cmd-row" style="margin-top:8px">
+              <pre id="cmd6">git status
+git log --oneline --graph --all
+git pull --rebase origin main
+git merge feature/mi-funcion
+git branch -d feature/mi-funcion</pre>
+              <button class="btn small" data-copy="cmd6">Copiar</button>
+            </div>
+          </div>
+        </div>
+
+        <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:14px 0">
+
+        <section>
+          <h2 style="font-size:15px;margin-bottom:6px">Práctica sugerida (rápida)</h2>
+          <ol class="list">
+            <li>Configura tu nombre y correo (usa la sección Configuración inicial).</li>
+            <li>Crea la carpeta `proyecto-demo`, inicializa Git y haz un primer commit.</li>
+            <li>En GitHub (web) crea un repositorio vacío `proyecto-demo` y copia la URL SSH o HTTPS.</li>
+            <li>Enlaza el remoto y haz `git push -u origin main`.</li>
+            <li>Crea una rama, modifica un archivo, haz commit y súbela; luego abre un Pull Request en GitHub.</li>
+          </ol>
+        </section>
+
+        <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:14px 0">
+
+        <section>
+          <h2 style="font-size:15px;margin-bottom:6px">Notas rápidas</h2>
+          <ul class="list">
+            <li>Si usas Windows, abre <strong>Git Bash</strong> para evitar problemas de CRLF.</li>
+            <li>Si recibes <code>Permission denied (publickey)</code>, revisa tu clave SSH y que esté añadida a GitHub.</li>
+            <li>Para HTTPS usa un <em>Personal Access Token</em> en lugar de contraseña si GitHub lo solicita.</li>
+          </ul>
+        </section>
+      </main>
+
+      <!-- aside -->
+      <aside class="card">
+        <div class="section-title">
+          <h2>Recursos rápidos</h2>
+          <div class="muted">copiar comandos</div>
+        </div>
+
+        <p class="muted" style="margin-bottom:10px">Comandos para generar y añadir clave SSH (recomendado):</p>
+        <pre id="sshCmd">ssh-keygen -t ed25519 -C "tu.email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub</pre>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn" data-copy="sshCmd">Copiar SSH</button>
+          <button class="btn secondary" onclick="alert('Sube la clave pública en: GitHub → Settings → SSH and GPG keys → New SSH key')">Cómo añadir</button>
+        </div>
+
+        <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:14px 0">
+
+        <div>
+          <h3 style="margin:0 0 8px 0;font-size:14px">Check rápido</h3>
+          <ul class="list">
+            <li><code>git --version</code> — verificar Git</li>
+            <li><code>git config --list</code> — ver config</li>
+            <li><code>git remote -v</code> — ver remotos</li>
+          </ul>
+        </div>
+
+        <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:14px 0">
+
+        <div class="muted" style="font-size:13px">Si quieres, puedo generar esta misma guía en un archivo HTML listo para descargar o adaptarla a un PDF/imprimible.</div>
+      </aside>
+    </div>
+
+    <div class="footer card" style="margin-top:18px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div class="muted">Hecho para aprender Git — instrucciones en español</div>
+        <div><button class="btn" onclick="copyAll()">Copiar todos los comandos</button></div>
+      </div>
+    </div>
+
+    <div id="copiedToast" class="copied" style="display:none">Copiado al portapapeles ✅</div>
+  </div>
+
+  <script>
+    // copy single snippet
+    document.querySelectorAll('[data-copy]').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const id = btn.getAttribute('data-copy');
+        const pre = document.getElementById(id);
+        if(!pre) return;
+        try{
+          await navigator.clipboard.writeText(pre.innerText.trim());
+          showToast();
+        }catch(e){
+          // fallback
+          const ta = document.createElement('textarea');
+          ta.value = pre.innerText.trim();
+          document.body.appendChild(ta); ta.select();
+          try{ document.execCommand('copy'); showToast(); } catch(e2){ alert('Copia manual: '+pre.innerText); }
+          document.body.removeChild(ta);
+        }
+      });
+    });
+
+    function showToast(){
+      const t = document.getElementById('copiedToast');
+      t.style.display='block';
+      clearTimeout(window._hideToast);
+      window._hideToast = setTimeout(()=> t.style.display='none',1600);
+    }
+
+    // copy all combined commands
+    function copyAll(){
+      const ids = ["cmd1","cmd2","cmd3","cmd4","cmd5","cmd6","sshCmd"];
+      let text = ids.map(i=>{
+        const el = document.getElementById(i);
+        return el ? el.innerText.trim() : '';
+      }).join('\\n\\n# --- \\n\\n');
+      navigator.clipboard.writeText(text).then(showToast).catch(()=>{ alert('No se pudo copiar todo automáticamente.'); });
+    }
+  </script>
+</body>
+</html>
